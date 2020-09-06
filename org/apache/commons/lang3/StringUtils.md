@@ -1,0 +1,328 @@
+# StringUtils
+
+- 3.11
+
+## 类定义
+
+~~~java
+/**
+  * 字符串工具类
+  * 版本: 1.0+
+  */
+public class StringUtils
+~~~
+
+## 静态属性
+
+~~~java
+
+// 空格字符
+public static final String SPACE = " ";
+
+// 空的字符串
+public static final String EMPTY = "";
+
+// 换行
+public static final String LF = "\n";
+
+// 回车
+public static final String CR = "\r";
+
+// 当在一个字符串中搜索不到指定字符时返回的索引值
+public static final int INDEX_NOT_FOUND = -1;
+
+~~~
+
+## 函数方法
+
+### abbreviate^1
+
+> 字符串缩略形式
+
+~~~java
+// str          待处理字符串
+// maxWidth     缩略形式的最大宽度，最小4
+// 异常         缩略长度过小时IllegalArgumentException
+// 版本         2.0+
+public static String abbreviate(final String str, final int maxWidth)
+
+// 示例
+StringUtils.abbreviate(null, *)      // null
+StringUtils.abbreviate("", 4)        // ""
+StringUtils.abbreviate("abcdefg", 6) // "abc..."
+StringUtils.abbreviate("abcdefg", 7) // "abcdefg"
+StringUtils.abbreviate("abcdefg", 8) // "abcdefg"
+StringUtils.abbreviate("abcdefg", 4) // "a..."
+StringUtils.abbreviate("abcdefg", 3) // IllegalArgumentException
+
+~~~
+
+### abbreviate^2
+
+> 字符串缩略形式
+
+~~~java
+// str          待处理字符串
+// offset       偏移量，从0开始
+// maxWidth     缩略形式的最大宽度，最小4
+// 异常         缩略长度过小时IllegalArgumentException
+// 版本         2.0+
+public static String abbreviate(final String str, final int offset, final int maxWidth)
+
+// 示例
+StringUtils.abbreviate(null, *, *)                // null
+StringUtils.abbreviate("", 0, 4)                  // ""
+StringUtils.abbreviate("abcdefghijklmno", -1, 10) // "abcdefg..."
+StringUtils.abbreviate("abcdefghijklmno", 0, 10)  // "abcdefg..."
+StringUtils.abbreviate("abcdefghijklmno", 1, 10)  // "abcdefg..."
+StringUtils.abbreviate("abcdefghijklmno", 4, 10)  // "abcdefg..."
+StringUtils.abbreviate("abcdefghijklmno", 5, 10)  // "...fghi..."
+StringUtils.abbreviate("abcdefghijklmno", 6, 10)  // "...ghij..."
+StringUtils.abbreviate("abcdefghijklmno", 8, 10)  // "...ijklmno"
+StringUtils.abbreviate("abcdefghijklmno", 10, 10) // "...ijklmno"
+StringUtils.abbreviate("abcdefghijklmno", 12, 10) // "...ijklmno"
+StringUtils.abbreviate("abcdefghij", 0, 3)        // IllegalArgumentException
+StringUtils.abbreviate("abcdefghij", 5, 6)        // IllegalArgumentException
+~~~
+
+### abbreviate^3
+
+> 字符串缩略形式
+
+~~~java
+// str          待处理字符串
+// abbrevMarker 指定省略部分替代所使用的字符串
+// maxWidth     缩略形式的最大宽度，最小4
+// 异常         缩略长度过小时IllegalArgumentException
+// 版本         3.6+
+public static String abbreviate(final String str, final String abbrevMarker, final int maxWidth)
+
+// 示例
+StringUtils.abbreviate(null, "...", *)      // null
+StringUtils.abbreviate("abcdefg", null, *)  // "abcdefg"
+StringUtils.abbreviate("", "...", 4)        // ""
+StringUtils.abbreviate("abcdefg", ".", 5)   // "abcd."
+StringUtils.abbreviate("abcdefg", ".", 7)   // "abcdefg"
+StringUtils.abbreviate("abcdefg", ".", 8)   // "abcdefg"
+StringUtils.abbreviate("abcdefg", "..", 4)  // "ab.."
+StringUtils.abbreviate("abcdefg", "..", 3)  // "a.."
+StringUtils.abbreviate("abcdefg", "..", 2)  // IllegalArgumentException
+StringUtils.abbreviate("abcdefg", "...", 3) // IllegalArgumentException
+~~~
+
+### abbreviate^4
+
+> 字符串缩略形式
+
+~~~java
+// str          待处理字符串
+// offset       偏移量，从0开始
+// abbrevMarker 指定省略部分替代所使用的字符串
+// maxWidth     缩略形式的最大宽度，最小4
+// 异常         缩略长度过小时IllegalArgumentException
+// 版本         3.6+
+public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth)
+
+// 示例
+StringUtils.abbreviate(null, null, *, *)                 // null
+StringUtils.abbreviate("abcdefghijklmno", null, *, *)    // "abcdefghijklmno"
+StringUtils.abbreviate("", "...", 0, 4)                  // ""
+StringUtils.abbreviate("abcdefghijklmno", "---", -1, 10) // "abcdefg---"
+StringUtils.abbreviate("abcdefghijklmno", ",", 0, 10)    // "abcdefghi,"
+StringUtils.abbreviate("abcdefghijklmno", ",", 1, 10)    // "abcdefghi,"
+StringUtils.abbreviate("abcdefghijklmno", ",", 2, 10)    // "abcdefghi,"
+StringUtils.abbreviate("abcdefghijklmno", "::", 4, 10)   // "::efghij::"
+StringUtils.abbreviate("abcdefghijklmno", "...", 6, 10)  // "...ghij..."
+StringUtils.abbreviate("abcdefghijklmno", "*", 9, 10)    // "*ghijklmno"
+StringUtils.abbreviate("abcdefghijklmno", "'", 10, 10)   // "'ghijklmno"
+StringUtils.abbreviate("abcdefghijklmno", "!", 12, 10)   // "!ghijklmno"
+StringUtils.abbreviate("abcdefghij", "abra", 0, 4)       // IllegalArgumentException
+StringUtils.abbreviate("abcdefghij", "...", 5, 6)        // IllegalArgumentException
+~~~
+
+### abbreviateMiddle
+
+> 缩略掉字符串中间一部分的字符
+
+~~~java
+// str          待处理字符串
+// middle       指定省略部分替代所使用的字符串
+// length       缩略形式的最大宽度，最小4
+// 版本         2.5+
+public static String abbreviateMiddle(final String str, final String middle, final int length)
+~~~
+
+### appendIfMissing
+
+> 如果一个字符串不以指定字符串结尾，则补之
+
+~~~java
+// str          待处理字符串
+// suffix       要添加到尾部的字符串
+// suffixes     校验字符串是否以指定字符串结尾
+// 版本         3.2+
+public static String appendIfMissing(final String str, final CharSequence suffix, final CharSequence... suffixes)
+
+// 示例
+StringUtils.appendIfMissing(null, null, null)       // null
+StringUtils.appendIfMissing("abc", null, null)      // "abc"
+StringUtils.appendIfMissing("", "xyz", null)        // "xyz"
+StringUtils.appendIfMissing("abc", "xyz", new CharSequence[]{null}) // "abcx
+StringUtils.appendIfMissing("abc", "xyz", "")       // "abc"
+StringUtils.appendIfMissing("abc", "xyz", "mno")    // "abcxyz"
+StringUtils.appendIfMissing("abcxyz", "xyz", "mno") // "abcxyz"
+StringUtils.appendIfMissing("abcmno", "xyz", "mno") // "abcmno"
+StringUtils.appendIfMissing("abcXYZ", "xyz", "mno") // "abcXYZxyz"
+StringUtils.appendIfMissing("abcMNO", "xyz", "mno") // "abcMNOxyz"
+~~~
+
+### appendIfMissingIgnoreCase
+
+> 如果一个字符串不以指定字符串结尾，则补之，忽略大小写
+
+~~~java
+// str          待处理字符串
+// suffix       要添加到尾部的字符串
+// suffixes     校验字符串是否以指定字符串结尾
+// 版本         3.2+
+public static String appendIfMissingIgnoreCase(final String str, final CharSequence suffix, final CharSequence... suffixes)
+
+// 示例
+StringUtils.appendIfMissingIgnoreCase(null, null, null)       // null
+StringUtils.appendIfMissingIgnoreCase("abc", null, null)      // "abc"
+StringUtils.appendIfMissingIgnoreCase("", "xyz", null)        // "xyz"
+StringUtils.appendIfMissingIgnoreCase("abc", "xyz", new CharSequence[]{null}) // "abcxyz"
+StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "")       // "abc"
+StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "mno")    // "abcxyz"
+StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz", "mno") // "abcxyz"
+StringUtils.appendIfMissingIgnoreCase("abcmno", "xyz", "mno") // "abcmno"
+StringUtils.appendIfMissingIgnoreCase("abcXYZ", "xyz", "mno") // "abcXYZ"
+StringUtils.appendIfMissingIgnoreCase("abcMNO", "xyz", "mno") // "abcMNO"
+~~~
+
+### capitalize
+
+> 将一个字符串的首字母转换成大写
+
+~~~java
+// str          待处理字符串
+// 版本         2.0+
+public static String capitalize(final String str)
+
+// 示例
+StringUtils.capitalize(null)    // null
+StringUtils.capitalize("")      // ""
+StringUtils.capitalize("cat")   // "Cat"
+StringUtils.capitalize("cAt")   // "CAt"
+StringUtils.capitalize("'cat'") // "'cat'"
+~~~
+
+### center^1
+
+> 将一个字符串按照指定宽度置于中间位置
+
+~~~java
+// str          待处理字符串
+// size         指定宽度
+// 版本         2.0+
+public static String center(final String str, final int size)
+
+// 示例
+StringUtils.center(null, *)   // null
+StringUtils.center("", 4)     // "    "
+StringUtils.center("ab", -1)  // "ab"
+StringUtils.center("ab", 4)   // " ab "
+StringUtils.center("abcd", 2) // "abcd"
+StringUtils.center("a", 4)    // " a  "
+~~~
+
+### center^2
+
+> 将一个字符串按照指定宽度置于中间位置
+
+~~~java
+// str          待处理字符串
+// size         指定宽度
+// padChar      指定填充字符
+// 版本         2.0+
+public static String center(final String str, final int size, final char padChar)
+
+// 示例
+StringUtils.center(null, *, *)     // null
+StringUtils.center("", 4, ' ')     // "    "
+StringUtils.center("ab", -1, ' ')  // "ab"
+StringUtils.center("ab", 4, ' ')   // " ab "
+StringUtils.center("abcd", 2, ' ') // "abcd"
+StringUtils.center("a", 4, ' ')    // " a  "
+StringUtils.center("a", 4, 'y')    // "yayy"
+~~~
+
+### center^3
+
+> 将一个字符串按照指定宽度置于中间位置
+
+~~~java
+// str          待处理字符串
+// size         指定宽度
+// padChar      指定填充字符串
+// 版本         2.0+
+public static String center(final String str, final int size, String padChar)
+
+// 示例
+StringUtils.center(null, *, *)     // null
+StringUtils.center("", 4, " ")     // "    "
+StringUtils.center("ab", -1, " ")  // "ab"
+StringUtils.center("ab", 4, " ")   // " ab "
+StringUtils.center("abcd", 2, " ") // "abcd"
+StringUtils.center("a", 4, " ")    // " a  "
+StringUtils.center("a", 4, "yz")   // "yayz"
+StringUtils.center("abc", 7, null) // "  abc  "
+StringUtils.center("abc", 7, "")   // "  abc  "
+~~~
+
+### chomp^1
+
+> 移除指定字符串后的一个新行
+
+~~~java
+// str          待处理字符串
+// 版本         2.0+
+public static String chomp(final String str)
+
+// 示例
+StringUtils.chomp(null)          // null
+StringUtils.chomp("")            // ""
+StringUtils.chomp("abc \r")      // "abc "
+StringUtils.chomp("abc\n")       // "abc"
+StringUtils.chomp("abc\r\n")     // "abc"
+StringUtils.chomp("abc\r\n\r\n") // "abc\r\n"
+StringUtils.chomp("abc\n\r")     // "abc\n"
+StringUtils.chomp("abc\n\rabc")  // "abc\n\rabc"
+StringUtils.chomp("\r")          // ""
+StringUtils.chomp("\n")          // ""
+StringUtils.chomp("\r\n")        // ""
+~~~
+
+### chomp^2
+
+> 移除指定字符串后的一个新行
+
+~~~java
+// str          待处理字符串
+// separator    指定结尾字符串
+// 版本         2.0+
+@Deprecated
+public static String chomp(final String str, final String separator)
+
+// 示例
+StringUtils.chomp(null, *)         // null
+StringUtils.chomp("", *)           // ""
+StringUtils.chomp("foobar", "bar") // "foo"
+StringUtils.chomp("foobar", "baz") // "foobar
+StringUtils.chomp("foo", "foo")    // ""
+StringUtils.chomp("foo ", "foo")   // "foo "
+StringUtils.chomp(" foo", "foo")   // " "
+StringUtils.chomp("foo", "foooo")  // "foo"
+StringUtils.chomp("foo", "")       // "foo"
+StringUtils.chomp("foo", null)     // "foo"
+~~~
