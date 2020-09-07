@@ -326,3 +326,234 @@ StringUtils.chomp("foo", "foooo")  // "foo"
 StringUtils.chomp("foo", "")       // "foo"
 StringUtils.chomp("foo", null)     // "foo"
 ~~~
+
+### chop
+
+> 移除一个字符串的最后一个字符，回车换行(/r/n)算作一个字符
+
+~~~java
+// str          待处理字符串
+public static String chop(final String str)
+
+// 示例
+StringUtils.chop(null)          // null
+StringUtils.chop("")            // ""
+StringUtils.chop("abc \r")      // "abc "
+StringUtils.chop("abc\n")       // "abc"
+StringUtils.chop("abc\r\n")     // "abc"
+StringUtils.chop("abc")         // "ab"
+StringUtils.chop("abc\nabc")    // "abc\nab"
+StringUtils.chop("a")           // ""
+StringUtils.chop("\r")          // ""
+StringUtils.chop("\n")          // ""
+StringUtils.chop("\r\n")        // ""
+~~~
+
+### compare^1
+
+> 按字典顺序比较两个字符串
+> null与任何非空字符串比较结果都小于0
+
+~~~java
+// str1           待比较字符串1
+// str2           待比较字符串2
+// 版本           3.5+
+public static int compare(final String str1, final String str2)
+
+// 示例
+StringUtils.compare(null, null)   // = 0
+StringUtils.compare(null , "a")   // < 0
+StringUtils.compare("a", null)    // > 0
+StringUtils.compare("abc", "abc") // = 0
+StringUtils.compare("a", "b")     // < 0
+StringUtils.compare("b", "a")     // > 0
+StringUtils.compare("a", "B")     // > 0
+StringUtils.compare("ab", "abc")  // < 0
+~~~
+
+### compare^2
+
+> 按字典顺序比较两个字符串
+> null与任何非空字符串比较结果都小于0
+
+~~~java
+// str1           待比较字符串1
+// str2           待比较字符串2
+// nullIsLess     true: null被认为最小, false: null被认为最大
+// 版本           3.5+
+public static int compare(final String str1, final String str2, final boolean nullIsLess)
+
+// 示例
+// *表示取值不会影响结果， 不可以直接出现在代码中
+StringUtils.compare(null, null, *)     // = 0
+StringUtils.compare(null , "a", true)  // < 0
+StringUtils.compare(null , "a", false) // > 0
+StringUtils.compare("a", null, true)   // > 0
+StringUtils.compare("a", null, false)  // < 0
+StringUtils.compare("abc", "abc", *)   // = 0
+StringUtils.compare("a", "b", *)       // < 0
+StringUtils.compare("b", "a", *)       // > 0
+StringUtils.compare("a", "B", *)       // > 0
+StringUtils.compare("ab", "abc", *)    // < 0
+~~~
+
+### compareIgnoreCase^1
+
+> 按字典顺序比较两个字符串，忽略大小写
+> null与任何非空字符串比较结果都小于0
+
+~~~java
+// str1           待比较字符串1
+// str2           待比较字符串2
+// 版本           3.5+
+public static int compareIgnoreCase(final String str1, final String str2)
+
+// 示例
+StringUtils.compareIgnoreCase(null, null)   // = 0
+StringUtils.compareIgnoreCase(null , "a")   // < 0
+StringUtils.compareIgnoreCase("a", null)    // > 0
+StringUtils.compareIgnoreCase("abc", "abc") // = 0
+StringUtils.compareIgnoreCase("abc", "ABC") // = 0
+StringUtils.compareIgnoreCase("a", "b")     // < 0
+StringUtils.compareIgnoreCase("b", "a")     // > 0
+StringUtils.compareIgnoreCase("a", "B")     // < 0
+StringUtils.compareIgnoreCase("A", "b")     // < 0
+StringUtils.compareIgnoreCase("ab", "ABC")  // < 0
+~~~
+
+### compareIgnoreCase^2
+
+> 按字典顺序比较两个字符串，忽略大小写
+> null与任何非空字符串比较结果都小于0
+
+~~~java
+// str1           待比较字符串1
+// str2           待比较字符串2
+// nullIsLess     true: null被认为最小, false: null被认为最大
+// 版本           3.5+
+public static int compareIgnoreCase(final String str1, final String str2, final boolean nullIsLess)
+
+// 示例
+// *表示取值不会影响结果， 不可以直接出现在代码中
+StringUtils.compareIgnoreCase(null, null, *)     // = 0
+StringUtils.compareIgnoreCase(null , "a", true)  // < 0
+StringUtils.compareIgnoreCase(null , "a", false) // > 0
+StringUtils.compareIgnoreCase("a", null, true)   // > 0
+StringUtils.compareIgnoreCase("a", null, false)  // < 0
+StringUtils.compareIgnoreCase("abc", "abc", *)   // = 0
+StringUtils.compareIgnoreCase("abc", "ABC", *)   // = 0
+StringUtils.compareIgnoreCase("a", "b", *)       // < 0
+StringUtils.compareIgnoreCase("b", "a", *)       // > 0
+StringUtils.compareIgnoreCase("a", "B", *)       // < 0
+StringUtils.compareIgnoreCase("A", "b", *)       // < 0
+StringUtils.compareIgnoreCase("ab", "abc", *)    // < 0
+~~~
+
+### contains^1
+
+> 检查某个字符串是否包含另一个字符串
+
+~~~java
+// seq            待检查字符串
+// searchSeq      待查找字符串
+// 版本           2.0+
+// 3.0版本从原来的contains(String, String)改为contains(CharSequence, CharSequence)
+public static boolean contains(final CharSequence seq, final CharSequence searchSeq)
+
+// 示例
+// *表示取值不会影响结果， 不可以直接出现在代码中
+StringUtils.contains(null, *)     // false
+StringUtils.contains(*, null)     // false
+StringUtils.contains("", "")      // true
+StringUtils.contains("abc", "")   // true
+StringUtils.contains("abc", "a")  // true
+StringUtils.contains("abc", "z")  // false
+~~~
+
+### contains^2
+
+> 检查某个字符串是否包含另一个字符
+
+~~~java
+// seq            待检查字符串
+// searchChar     待查找字符
+// 版本           2.0+
+// 3.0版本从原来的contains(String, int)改为contains(CharSequence, int)
+public static boolean contains(final CharSequence seq, final int searchChar)
+
+// 示例
+// *表示取值不会影响结果， 不可以直接出现在代码中
+StringUtils.contains(null, *)    // false
+StringUtils.contains("", *)      // false
+StringUtils.contains("abc", 'a') // true
+StringUtils.contains("abc", 'z') // false
+~~~
+
+### containsAny^1
+
+> 检查某个字符串是否包含一组字符中的某个字符
+
+~~~java
+// seq            待检查字符串
+// searchChars    待查找字符数组
+// 版本           2.4+
+// 3.0版本从原来的contains(String, char[])改为contains(CharSequence, char...)
+public static boolean containsAny(final CharSequence cs, final char... searchChars)
+
+// 示例
+// *表示取值不会影响结果， 不可以直接出现在代码中
+StringUtils.containsAny(null, *)                  // false
+StringUtils.containsAny("", *)                    // false
+StringUtils.containsAny(*, null)                  // false
+StringUtils.containsAny(*, [])                    // false
+StringUtils.containsAny("zzabyycdxx", 'z', 'a')   // true
+StringUtils.containsAny("zzabyycdxx", 'b', 'y')   // true
+StringUtils.containsAny("zzabyycdxx", 'z', 'y')   // true
+StringUtils.containsAny("aba", 'z')               // false
+~~~
+
+### containsAny^2
+
+> 检查某个字符串是否包含指定字符串中的某个字符
+
+~~~java
+// seq            待检查字符串
+// searchChars    待查找字符串
+// 版本           2.4+
+// 3.0版本从原来的contains(String, String)改为contains(CharSequence, CharSequence)
+public static boolean containsAny(final CharSequence cs, final CharSequence searchChars)
+
+// 示例
+// *表示取值不会影响结果， 不可以直接出现在代码中
+StringUtils.containsAny(null, *)               // false
+StringUtils.containsAny("", *)                 // false
+StringUtils.containsAny(*, null)               // false
+StringUtils.containsAny(*, "")                 // false
+StringUtils.containsAny("zzabyycdxx", "za")    // true
+StringUtils.containsAny("zzabyycdxx", "by")    // true
+StringUtils.containsAny("zzabyycdxx", "zy")    // true
+StringUtils.containsAny("zzabyycdxx", "\tx")   // true
+StringUtils.containsAny("zzabyycdxx", "$.#yF") // true
+StringUtils.containsAny("aba", "z")            // false
+~~~
+
+### containsAny^3
+
+> 检查某个字符串是否包含指定字符串数组中的某个字符
+
+~~~java
+// seq                  待检查字符串
+// searchCharSequences  待查找字符串数组
+// 版本                 3.4+
+public static boolean containsAny(final CharSequence cs, final CharSequence... searchCharSequences)
+
+// 示例
+// *表示取值不会影响结果， 不可以直接出现在代码中
+StringUtils.containsAny(null, *)            // false
+StringUtils.containsAny("", *)              // false
+StringUtils.containsAny(*, null)            // false
+StringUtils.containsAny(*, [])              // false
+StringUtils.containsAny("abcd", "ab", null) // true
+StringUtils.containsAny("abcd", "ab", "cd") // true
+StringUtils.containsAny("abc", "d", "abc")  // true
+~~~
