@@ -6,3 +6,4 @@
 - [随机数 RandomUtils](RandomUtils.md)
 - [正则表达式 RegExUtils](RegExUtils.md)
 - [字符集合 CharSetUtils](CharSetUtils.md)
+- [字符串序列 CharSequenceUtils](CharSequenceUtils.md)
