@@ -1,21 +1,18 @@
 # StringUtils
 
-- 3.11
+> 字符串工具类
+>
+> 版本： 1.0+
 
 ## 类定义
 
 ~~~java
-/**
-  * 字符串工具类
-  * 版本: 1.0+
-  */
 public class StringUtils
 ~~~
 
 ## 静态属性
 
 ~~~java
-
 // 空格字符
 public static final String SPACE = " ";
 
@@ -30,7 +27,6 @@ public static final String CR = "\r";
 
 // 当在一个字符串中搜索不到指定字符时返回的索引值
 public static final int INDEX_NOT_FOUND = -1;
-
 ~~~
 
 ## 函数方法

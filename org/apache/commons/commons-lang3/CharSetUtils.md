@@ -1,10 +1,10 @@
 # CharSetUtils
 
-## 类定义
-
-> 字符集合(CharSet)工具类
+> 字符集合([CharSet](CharSet.md))工具类
 >
 > 版本： 1.0+
+
+## 类定义
 
 ~~~java
 public class CharSetUtils

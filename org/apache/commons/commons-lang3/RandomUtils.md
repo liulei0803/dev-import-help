@@ -1,10 +1,10 @@
 # RandomUtils
 
-## 类定义
-
 > 随机数工具类
 >
 > 版本： 3.3+
+
+## 类定义
 
 ~~~java
 public class RandomUtils
@@ -12,17 +12,9 @@ public class RandomUtils
 
 ## 构造函数
 
-> 代码编写过程中不要构造此类的实例
-
 ~~~java
-// 默认
+// 代码编写过程中不要构造此类的实例
 public RandomUtils()
-~~~
-
-## 静态成员
-
-~~~java
-// 无
 ~~~
 
 ## 普通函数

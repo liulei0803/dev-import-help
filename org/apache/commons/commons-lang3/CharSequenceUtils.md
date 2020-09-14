@@ -12,9 +12,8 @@ public class CharSequenceUtils
 
 ## 构造函数
 
-> 不建议通过构造函数生成实例对方法属性进行访问
-
 ~~~java
+// 不建议通过构造函数生成实例对方法属性进行访问
 public CharSequenceUtils()
 ~~~
 
